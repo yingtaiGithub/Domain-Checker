@@ -11,5 +11,5 @@ The project use Python, Flask, Mysql and Sqlalchemy. The project is for checking
     In config.py, replace the default data with your own
 
 #### How to run
-    For running web app, python app.py
-    For making cron job, python cron_add.py
+    For running web app, python3 app.py
+    For making cron job, python3 cron_add.py
