@@ -80,4 +80,4 @@ if __name__ == "__main__":
                     extra_files.append(filename)
 
     db.create_all()
-    app.run(extra_files=extra_files)
+    app.run(host='0.0.0.0', extra_files=extra_files)
