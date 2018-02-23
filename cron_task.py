@@ -1,4 +1,5 @@
 import sys
+import time
 import smtplib
 from email.mime.text import MIMEText
 
@@ -58,6 +59,8 @@ def main():
         if expire_date != "Wrong Format" and expire_date:
             save_domain({'name': domain.name, 'expire_date': expire_date})
             data.append({'name': domain.name, 'expire_date': expire_date})
+
+        time.sleep(5)
 
     send_email(str(data))
 

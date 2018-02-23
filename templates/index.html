@@ -81,7 +81,7 @@
                     {% if item.expire_date %}
                     <td>{{ item.expire_date }}</td>
                     {% else %}
-                    <td>Not Existing</td>
+                    <td>Error</td>
                     {% endif %}
                 </tr>
                 {% endfor %}
@@ -97,11 +97,12 @@
                 domains: domains
               }, function(data) {
                     jQuery.each(data, function(index, value) {
-                        if (value.expire_date) {
-                            var tr = $("<tr><td>" + value.name + "</td><td>" + value.expire_date + "</td></tr>")
-                        } else {
-                            var tr = $("<tr><td>" + value.name + "</td><td>" + "Not Existing" + "</td></tr>")
-                        }
+                        var tr = $("<tr><td>" + value.name + "</td><td>" + value.expire_date + "</td></tr>")
+//                        if (value.expire_date) {
+//                            var tr = $("<tr><td>" + value.name + "</td><td>" + value.expire_date + "</td></tr>")
+//                        } else {
+//                            var tr = $("<tr><td>" + value.name + "</td><td>" + "Not Existing" + "</td></tr>")
+//                        }
                         $("table").append(tr)
                     });
               });

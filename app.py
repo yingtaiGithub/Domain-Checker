@@ -19,9 +19,9 @@ db = SQLAlchemy(app)
 class Domain(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True)
-    expire_status = db.Column(db.Boolean)
-    expire_date = db.Column(db.Date)
-    email = db.Column(db.String(120), unique=True)
+    # expire_status = db.Column(db.Boolean)
+    expire_date = db.Column(db.String(30))
+    # email = db.Column(db.String(120), unique=True)
 
     def __init__(self, name):
         self.name = name
@@ -33,16 +33,16 @@ def save_domain(data):
     row = Domain.query.filter_by(name=data.get('name')).first()
 
     if row:
-        row.expire_status = data.get('expire_status')
+        # row.expire_status = data.get('expire_status')
         row.expire_date = data.get('expire_date')
-        row.email = data.get('email')
+        # row.email = data.get('email')
 
         db.session.commit()
     else:
         domain = Domain(data.get('name'))
-        domain.expire_status = data.get('expire_status')
+        # domain.expire_status = data.get('expire_status')
         domain.expire_date = data.get('expire_date')
-        domain.email = data.get('email')
+        # domain.email = data.get('email')
 
         db.session.add(domain)
         db.session.commit()

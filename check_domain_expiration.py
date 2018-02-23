@@ -1,13 +1,16 @@
+import re
+
 import whois
+import pythonwhois
 from datetime import datetime
 from sys import exit
 
-def check(domain):
+def check1(domain):
     now = datetime.now()
     try:
         w = whois.whois(domain)
     except UnicodeError:
-        return "Wrong Format"
+        return "Wrong Domain Name"
 
     if (w.expiration_date and w.status) == None:
         # print ('The domain does not exist, exiting...')
@@ -33,13 +36,41 @@ def check(domain):
     # else:
     #     print ('OK, the domain %s is expiring on %s, %s days to go. No need to renew at this moment of time' % (domain, domain_expiration_date, days_to_expire))
     #     exit(0)
+    return domain_expiration_date
+
+
+def check(domain):
+    try:
+        detail = pythonwhois.get_whois(domain)
+    except UnicodeError:
+        return "Wrong Domain Name"
+
+    # print (detail)
+
+    if 'expiration_date' in detail:
+        domain_expiration_date = detail['expiration_date'][0]
+        print (type(domain_expiration_date))
+        domain_expiration_date = domain_expiration_date.strftime("%Y-%m-%d")
+    elif 'No match for' in detail['raw'][0]:
+        domain_expiration_date = "No match for %s" %domain
+    elif 'domain_datebilleduntil' in detail['raw'][0]:
+        domain_expiration_date = re.search(r'domain_datebilleduntil: ([0-9-]+)T', detail['raw'][0]).group(1)
+    else:
+        domain_expiration_date = "None"
 
     return domain_expiration_date
 
 
-
 def main():
-    domain = ".com"
+    # domain = "google.com"
+    # domain = "reeves.co.nz"
+    # domain = "reeves.nz"
+    # domain = "aaaaaazzccdeedfdssedf1234.com"
+    # domain = "google.com.au"
+    # domain = "Spotless.com.au"
+    # domain = "Localhost.co.nz"
+    # domain = "Reeves.net.nz"
+    domain = "Matthewgallagher.net.au"
     print (check(domain))
 
 if __name__ == "__main__":
